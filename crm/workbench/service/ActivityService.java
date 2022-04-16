@@ -22,5 +22,14 @@ public interface ActivityService {
     Activity queryActivityById(String id);
 
     //更新修改后的市场活动信息
-    int saveEditActivity(Activity activity);
+    int updateEditActivity(Activity activity);
+
+    //根据市场活动id查看一条或者多条活动信息
+    List<Activity> queryAllActivities();
+
+    //根据市场活动id查看一条或者多条活动信息
+    List<Activity> queryActivitiesById(String[] ids);
+
+    //批量保存excel表中创建的市场活动
+    int saveCreateActivityByList(List<Activity> activityList);
 }

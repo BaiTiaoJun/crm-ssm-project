@@ -1,10 +1,10 @@
 package com.zhangshun.crm.settings.web.controller;
 
-import com.zhangshun.crm.commons.uitl.MD5Util;
+import com.zhangshun.crm.commons.util.MD5Util;
 import com.zhangshun.crm.commons.vo.ReturnInfoVo;
 import com.zhangshun.crm.settings.service.UserService;
-import com.zhangshun.crm.commons.uitl.ConstantUtil;
-import com.zhangshun.crm.commons.uitl.DateFormatUtil;
+import com.zhangshun.crm.commons.util.ConstantUtil;
+import com.zhangshun.crm.commons.util.DateFormatUtil;
 import com.zhangshun.crm.settings.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

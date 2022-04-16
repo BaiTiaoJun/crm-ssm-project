@@ -1,6 +1,6 @@
 package com.zhangshun.crm.settings.web.interceptor;
 
-import com.zhangshun.crm.commons.uitl.ConstantUtil;
+import com.zhangshun.crm.commons.util.ConstantUtil;
 import com.zhangshun.crm.settings.domain.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;

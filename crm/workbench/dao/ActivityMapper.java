@@ -92,5 +92,25 @@ public interface ActivityMapper {
      * @param activity
      * @return
      */
-    int saveEditActivity(Activity activity);
+    int updateEditActivity(Activity activity);
+
+    /**
+     * 查询所有市场活动信息
+     * @return
+     */
+    List<Activity> selectAllActivities();
+
+    /**
+     * 根据市场活动id查看一条或者多条活动信息
+     * @param ids
+     * @return
+     */
+    List<Activity> selectActivitiesById(String[] ids);
+
+    /**
+     * 批量保存excel表中创建的市场活动
+     * @param activityList
+     * @return
+     */
+    int insertActivityByList(List<Activity> activityList);
 }
