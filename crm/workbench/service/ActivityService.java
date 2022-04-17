@@ -1,6 +1,7 @@
 package com.zhangshun.crm.workbench.service;
 
 import com.zhangshun.crm.workbench.domain.Activity;
+import com.zhangshun.crm.workbench.domain.ActivityRemark;
 
 import java.util.List;
 import java.util.Map;
@@ -32,4 +33,7 @@ public interface ActivityService {
 
     //批量保存excel表中创建的市场活动
     int saveCreateActivityByList(List<Activity> activityList);
+
+    //根据id查询市场活动明细
+    Activity queryActivityForDetailById(String id);
 }

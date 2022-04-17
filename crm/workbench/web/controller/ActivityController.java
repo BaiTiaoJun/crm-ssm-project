@@ -1,5 +1,6 @@
 package com.zhangshun.crm.workbench.web.controller;
 
+import com.sun.scenario.effect.impl.prism.PrImage;
 import com.zhangshun.crm.commons.util.ConstantUtil;
 import com.zhangshun.crm.commons.util.DateFormatUtil;
 import com.zhangshun.crm.commons.util.HSSFUtil;
@@ -8,6 +9,8 @@ import com.zhangshun.crm.commons.vo.ReturnInfoVo;
 import com.zhangshun.crm.settings.domain.User;
 import com.zhangshun.crm.settings.service.UserService;
 import com.zhangshun.crm.workbench.domain.Activity;
+import com.zhangshun.crm.workbench.domain.ActivityRemark;
+import com.zhangshun.crm.workbench.service.ActivityRemarkService;
 import com.zhangshun.crm.workbench.service.ActivityService;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -34,6 +37,9 @@ public class ActivityController {
 
     @Autowired
     private ActivityService activityService;
+
+    @Autowired
+    private ActivityRemarkService activityRemarkService;
 
     /**
      * 生成市场活动excel表的参数信息
@@ -189,14 +195,20 @@ public class ActivityController {
     public @ResponseBody Object importActivitiesByExcel(HttpSession session, MultipartFile activityFile) {
         ReturnInfoVo returnInfoVo = new ReturnInfoVo();
         //指定生成文件的路径和文件名称与格式
-        String path = "/Users/baitiaojun/java后端学习/java项目/CRM客户管理系统项目（SSM）/CRM_Project/exFiles" + activityFile.getOriginalFilename();
-        File file = new File(path);
+        //从内存获取就不用执行这行代码，就是不用往磁盘存储数据
+        /*String path = "/Users/baitiaojun/java后端学习/java项目/CRM客户管理系统项目（SSM）/CRM_Project/exFiles" + activityFile.getOriginalFilename();
+        File file = new File(path);*/
         try {
             //前台接收的文件转换到服务器上存储
-            activityFile.transferTo(file);
-            //服务器上获取上传的指定文件
-            FileInputStream in = new FileInputStream(path);
-//            从通过流从服务器获取excel文件封装到workbook
+            //本地磁盘生成文件，效率低
+//            activityFile.transferTo(file);
+            //服务器上获取上传的指定文件，效率低
+//            FileInputStream in = new FileInputStream(path);
+
+            //从内存获取文件，效率搞！！！！！
+            InputStream in = activityFile.getInputStream();
+
+            //从通过流从服务器获取excel文件封装到workbook
             HSSFWorkbook workbook = new HSSFWorkbook(in);
 
             HSSFSheet sheet = null;
@@ -259,6 +271,17 @@ public class ActivityController {
             e.printStackTrace();
         }
         return returnInfoVo;
+    }
+
+    @RequestMapping(value = "/workbench/activity/activityDetail.do")
+    public String activityDetail(String id, HttpServletRequest request) {
+        Activity activity = activityService.queryActivityForDetailById(id);
+        List<ActivityRemark> activityRemarks = activityRemarkService.queryActivityRemarkForDetailByActivityId(activity.getId());
+
+        request.setAttribute("activity", activity);
+        request.setAttribute("activityRemarks", activityRemarks);
+
+        return "workbench/activity/detail";
     }
 
     //测试文件下载

@@ -344,4 +344,14 @@
       (#{a.id}, #{a.owner}, #{a.name}, #{a.startdate}, #{a.enddate}, #{a.cost}, #{a.description}, #{a.createtime}, #{a.createby})
     </foreach>
   </insert>
+
+<!--  根据id查询市场活动明细-->
+  <select id="selectActivityForDetailById" parameterType="string" resultMap="BaseResultMap">
+    select a.id, u1.name as owner, a.name, a.startDate, a.endDate, a.cost, a.description, a.createTime, u2.name as createBy, a.editTime, u3.name as editBy
+    from tbl_activity a
+    join tbl_user u1 on u1.id=a.owner
+    join tbl_user u2 on u2.id=a.createBy
+    left join tbl_user u3 on u3.id=a.editBy
+    where a.id=#{id}
+  </select>
 </mapper>
