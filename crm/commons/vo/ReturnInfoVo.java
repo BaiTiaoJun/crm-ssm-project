@@ -3,7 +3,7 @@ package com.zhangshun.crm.commons.vo;
 public class ReturnInfoVo {
     private String code;
     private String message;
-    private int returnRes;
+    private Object returnRes;
 
     public String getCode() {
         return code;
@@ -21,11 +21,11 @@ public class ReturnInfoVo {
         this.message = message;
     }
 
-    public int getReturnRes() {
+    public Object getReturnRes() {
         return returnRes;
     }
 
-    public void setReturnRes(int returnRes) {
+    public void setReturnRes(Object returnRes) {
         this.returnRes = returnRes;
     }
 }

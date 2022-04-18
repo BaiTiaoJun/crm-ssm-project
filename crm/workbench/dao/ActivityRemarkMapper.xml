@@ -172,5 +172,11 @@
     join tbl_user u1 on u1.id=ar.createBy
     left join tbl_user u2 on u2.id=ar.editBy
     where activityId=#{activityId}
+    order by ar.createTime desc
   </select>
+
+  <insert id="insertActivityRemark" parameterType="com.zhangshun.crm.workbench.domain.ActivityRemark">
+    insert into tbl_activity_remark (id, noteContent, createTime, createBy, editFlag, activityId)
+    values(#{id}, #{notecontent}, #{createtime}, #{createby}, #{editflag}, #{activityid})
+  </insert>
 </mapper>

@@ -59,4 +59,11 @@ public interface ActivityRemarkMapper {
      * @return
      */
     List<ActivityRemark> selectActivityRemarkForDetailByActivityId(String activityId);
+
+    /**
+     * 添加市场活动备注信息
+     * @param activityRemark
+     * @return
+     */
+    int insertActivityRemark(ActivityRemark activityRemark);
 }

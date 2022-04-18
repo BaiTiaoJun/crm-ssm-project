@@ -17,4 +17,7 @@ public class ConstantUtil {
      public static final String LOGIN_PASSWORD_KEY = "loginPwd";
      //添加市场活动信息失败返回提示信息
      public static final String INSERT_FAIL_MESSAGE = "系统繁忙，请稍后再试";
+     //市场活动备注判断是否被编辑的标识位
+     public static final String EDIT_FLAG_YES_CODE = "1";
+     public static final String EDIT_FLAG_NO_CODE = "0";
 }
