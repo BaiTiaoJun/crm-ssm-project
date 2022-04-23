@@ -141,4 +141,11 @@ public interface ActivityMapper {
      * @return
      */
     List<Activity> selectActivityForDetailByIds(String[] ids);
+
+    /**
+     * 根据活动名称和线索id查询已和线索关联的活动信息
+     * @param map
+     * @return
+     */
+    List<Activity> selectActivityForConvertByNameClueId(Map<String, Object> map);
 }

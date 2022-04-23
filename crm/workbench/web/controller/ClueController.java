@@ -139,4 +139,47 @@ public class ClueController {
         }
         return returnInfoVo;
     }
+
+    @RequestMapping("/workbench/clue/deleteClueActivityRelation.do")
+    public @ResponseBody Object deleteClueActivityRelation(String activityId, String clueId) {
+        ClueActivityRelation clueActivityRelation = new ClueActivityRelation();
+        clueActivityRelation.setId(UUIDUtil.getUUID());
+        clueActivityRelation.setClueid(clueId);
+        clueActivityRelation.setActivityid(activityId);
+
+        ReturnInfoVo returnInfoVo = new ReturnInfoVo();
+
+        try {
+            int res = clueActivityRelationService.deleteClueActivityRelationByClueIdActivityId(clueActivityRelation);
+            if (res > 0) {
+                returnInfoVo.setCode(ConstantUtil.SUCCESS_CODE);
+            } else {
+                returnInfoVo.setCode(ConstantUtil.FAIL_CODE);
+                returnInfoVo.setMessage("系统繁忙，请稍后再试...");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            returnInfoVo.setCode(ConstantUtil.FAIL_CODE);
+            returnInfoVo.setMessage("系统繁忙，请稍后再试...");
+        }
+        return returnInfoVo;
+    }
+
+    @RequestMapping("/workbench/clue/convertTo.do")
+    public String convertTo(String id,HttpServletRequest request) {
+        Clue clue = clueService.queryClueForDetailById(id);
+        List<DicValue> dicValues = dicValueService.queryDicValueByTypeCode("stage");
+        request.setAttribute("clue", clue);
+        request.setAttribute("dicValues", dicValues);
+        return "workbench/clue/convert";
+    }
+
+    @RequestMapping("/workbench/clue/queryActivityConvertByNameClueId.do")
+    public @ResponseBody Object queryActivityConvertByNameClueId(String activityName, String clueId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("activityName", activityName);
+        map.put("clueId", clueId);
+
+        return activityService.queryActivityConvertByNameClueId(map);
+    }
 }

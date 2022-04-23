@@ -375,6 +375,7 @@
     )
   </select>
 
+<!--  添加完关联信息后,根据已和线索关联的市场活动id，查询市场活动-->
   <select id="selectActivityForDetailByIds" parameterType="string" resultMap="BaseResultMap">
     select a.id, u.name as owner, a.name, a.startDate, a.endDate
     from tbl_activity a
@@ -383,5 +384,16 @@
     <foreach collection="array" item="id" separator="," open="(" close=")">
       #{id}
     </foreach>
+  </select>
+
+<!--  根据活动名称和线索id查询已和线索关联的活动信息-->
+  <select id="selectActivityForConvertByNameClueId" parameterType="map" resultMap="BaseResultMap">
+    select a.id, a.name, a.startDate, a.endDate, u.name as owner
+    from tbl_activity a
+    join tbl_user u on a.owner=u.id
+    where a.name like '%' #{activityName} '%'
+    and a.id in(
+        select activityId from tbl_clue_activity_relation where clueId=#{clueId}
+    )
   </select>
 </mapper>

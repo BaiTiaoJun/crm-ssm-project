@@ -116,4 +116,9 @@
       (#{obj.id}, #{obj.clueid}, #{obj.activityid})
     </foreach>
   </insert>
+
+<!--  根据线索市场关联关系表的线索id和市场id删除关联关系-->
+  <delete id="deleteClueActivityRelationByClueActivityId" parameterType="com.zhangshun.crm.workbench.domain.ClueActivityRelation">
+    delete from tbl_clue_activity_relation where clueId=#{clueid} and activityId=#{activityid}
+  </delete>
 </mapper>

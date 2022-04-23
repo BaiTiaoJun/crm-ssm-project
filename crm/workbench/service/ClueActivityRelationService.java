@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ClueActivityRelationService {
     int saveClueActivityRelationByList(List<ClueActivityRelation> list);
+
+    int deleteClueActivityRelationByClueIdActivityId(ClueActivityRelation clueActivityRelation);
 }

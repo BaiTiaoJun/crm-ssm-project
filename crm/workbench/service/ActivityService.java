@@ -45,4 +45,7 @@ public interface ActivityService {
 
     //添加完关联信息后,根据已和线索关联的市场活动id，查询市场活动
     List<Activity> queryActivityForDetailByIds(String[] ids);
+
+    //根据活动名称和线索id查询已和线索关联的活动信息
+    List<Activity> queryActivityConvertByNameClueId(Map<String, Object> map);
 }
