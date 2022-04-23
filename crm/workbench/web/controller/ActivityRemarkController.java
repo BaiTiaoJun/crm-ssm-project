@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class ActivityRemarkController {
@@ -49,6 +51,55 @@ public class ActivityRemarkController {
             returnInfoVo.setCode(ConstantUtil.FAIL_CODE);
             returnInfoVo.setMessage("系统繁忙，请稍后再试...");
         }
+        return returnInfoVo;
+    }
+
+    @RequestMapping("/workbench/activity/deleteActivityRemarkById.do")
+    public @ResponseBody Object deleteActivityRemarkById(String id) {
+        ReturnInfoVo returnInfoVo = new ReturnInfoVo();
+
+        try {
+            int res = activityRemarkService.deleteActivityRemarkById(id);
+            if (res > 0) {
+                returnInfoVo.setCode(ConstantUtil.SUCCESS_CODE);
+            } else {
+                returnInfoVo.setCode(ConstantUtil.FAIL_CODE);
+                returnInfoVo.setMessage("系统繁忙，请稍后再试...");
+            }
+        } catch (Exception e) {
+            returnInfoVo.setCode(ConstantUtil.FAIL_CODE);
+            returnInfoVo.setMessage("系统繁忙，请稍后再试...");
+        }
+
+        return returnInfoVo;
+    }
+
+    @RequestMapping("/workbench/activity/saveEditActivityRemark.do")
+    public @ResponseBody Object saveEditActivityRemark(String id, String noteContent, HttpSession session) {
+        ReturnInfoVo returnInfoVo = new ReturnInfoVo();
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("noteContent", noteContent);
+        map.put("editTime", DateFormatUtil.getDateFormat_FULL(new Date()));
+        map.put("editBy", ((User) session.getAttribute(ConstantUtil.SESSION_USER)).getId());
+        map.put("editFlag", ConstantUtil.EDIT_FLAG_YES_CODE);
+
+        try {
+            int res = activityRemarkService.saveEditActivityRemark(map);
+            if (res > 0) {
+                returnInfoVo.setCode(ConstantUtil.SUCCESS_CODE);
+                returnInfoVo.setReturnRes(map);
+            } else {
+                returnInfoVo.setCode(ConstantUtil.FAIL_CODE);
+                returnInfoVo.setMessage("系统繁忙，请稍后再试...");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            returnInfoVo.setCode(ConstantUtil.FAIL_CODE);
+            returnInfoVo.setMessage("系统繁忙，请稍后再试...");
+        }
+
         return returnInfoVo;
     }
 }

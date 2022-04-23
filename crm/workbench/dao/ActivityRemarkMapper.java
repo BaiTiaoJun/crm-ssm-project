@@ -3,6 +3,7 @@ package com.zhangshun.crm.workbench.dao;
 import com.zhangshun.crm.workbench.domain.ActivityRemark;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ActivityRemarkMapper {
     /**
@@ -66,4 +67,18 @@ public interface ActivityRemarkMapper {
      * @return
      */
     int insertActivityRemark(ActivityRemark activityRemark);
+
+    /**
+     * 通过id删除市场备注信息
+     * @param id
+     * @return
+     */
+    int deleteActivityRemarkById(String id);
+
+    /**
+     * 通过id修改市场活动备注信息
+     * @param remark
+     * @return
+     */
+    int updateActivityRemark(Map<String, Object> remark);
 }

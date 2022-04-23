@@ -120,4 +120,25 @@ public interface ActivityMapper {
      * @return
      */
     Activity selectActivityForDetailById(String id);
+
+    /**
+     * 根据线索基本表的id查询市场所关联的市场活动信息
+     * @param clueId
+     * @return
+     */
+    List<Activity> selectActivityForDetailByClueId(String clueId);
+
+    /**
+     * 根据线索id和市场名称，模糊查询没有和线索关联的市场活动
+     * @param map
+     * @return
+     */
+    List<Activity> selectActivityForDetailByNameClueId(Map<String, Object> map);
+
+    /**
+     * 添加完关联信息后,根据已和线索关联的市场活动id，查询市场活动
+     * @param ids
+     * @return
+     */
+    List<Activity> selectActivityForDetailByIds(String[] ids);
 }
