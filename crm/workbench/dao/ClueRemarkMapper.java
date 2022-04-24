@@ -1,5 +1,6 @@
 package com.zhangshun.crm.workbench.dao;
 
+import com.zhangshun.crm.workbench.domain.Clue;
 import com.zhangshun.crm.workbench.domain.ClueRemark;
 
 import java.util.List;
@@ -59,4 +60,19 @@ public interface ClueRemarkMapper {
      * @return
      */
     List<ClueRemark> selectClueRemarkForDetailByClueId(String clueId);
+
+
+    /**
+     * 根据clueid查询线索下所有的备注
+     * @param id
+     * @return
+     */
+    List<ClueRemark> selectClueRemarksById(String id);
+
+    /**
+     * 删除线索的备注
+     * @param clueId
+     * @return
+     */
+    int deleteClueRemarkMapperByClueId(String clueId);
 }

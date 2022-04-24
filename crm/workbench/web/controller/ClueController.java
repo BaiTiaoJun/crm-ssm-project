@@ -14,6 +14,7 @@ import com.zhangshun.crm.workbench.domain.ClueRemark;
 import com.zhangshun.crm.workbench.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -181,5 +182,30 @@ public class ClueController {
         map.put("clueId", clueId);
 
         return activityService.queryActivityConvertByNameClueId(map);
+    }
+
+    @RequestMapping("/workbench/clue/saveConvertClue.do")
+    public @ResponseBody Object saveConvertClue(String clueId, String money, String tranName, String expectedDate, String stage, String activityId, String isTransaction, HttpSession session) {
+        ReturnInfoVo returnInfoVo = new ReturnInfoVo();
+
+        Map<String, String> map = new HashMap<>();
+        map.put("clueId", clueId);
+        map.put("money", money);
+        map.put("tranName", tranName);
+        map.put("expectedDate", expectedDate);
+        map.put("stage", stage);
+        map.put("activityId", activityId);
+        map.put("isTransaction", isTransaction);
+        map.put(ConstantUtil.SESSION_USER, ((User) session.getAttribute(ConstantUtil.SESSION_USER)).getId());
+
+        try {
+            clueService.saveConvertClue(map);
+            returnInfoVo.setCode(ConstantUtil.SUCCESS_CODE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            returnInfoVo.setCode(ConstantUtil.FAIL_CODE);
+            returnInfoVo.setMessage("系统繁忙，请稍后再试...");
+        }
+        return returnInfoVo;
     }
 }

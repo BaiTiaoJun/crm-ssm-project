@@ -121,4 +121,16 @@
   <delete id="deleteClueActivityRelationByClueActivityId" parameterType="com.zhangshun.crm.workbench.domain.ClueActivityRelation">
     delete from tbl_clue_activity_relation where clueId=#{clueid} and activityId=#{activityid}
   </delete>
+
+<!--  根据clueId查询该线索和市场活动的关联关系-->
+  <select id="selectClueActivityRelationByClueId" parameterType="string" resultMap="BaseResultMap">
+    select id, clueId, activityId
+    from tbl_clue_activity_relation
+    where clueId=#{clueId}
+  </select>
+
+<!--  删除线索和市场活动的关联关系-->
+  <delete id="deleteClueActivityRelationMapperByClueId" parameterType="string">
+    delete from tbl_clue_activity_relation where clueId=#{clueId}
+  </delete>
 </mapper>

@@ -66,4 +66,18 @@ public interface ClueMapper {
      * @return
      */
     Clue selectClueForDetailById(String id);
+
+    /**
+     * 根据id查询线索的信息
+     * @param id
+     * @return
+     */
+    Clue selectClueById(String id);
+
+    /**
+     * 删除线索的备注
+     * @param id
+     * @return
+     */
+    int deleteClueById(String id);
 }
